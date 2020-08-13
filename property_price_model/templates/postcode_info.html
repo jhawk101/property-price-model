@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Postcode info</h1>
+<table>
+    <thead>
+        <th>Category</th>
+        <th>Value</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Postcode</td>
+            <td>{{ session.pcode }}</td>
+        </tr>
+        <tr>
+            <td>Square Footage</td>
+            <td>{{ session.sqft }}</td>
+        </tr>
+        <tr>
+            <td>Bedrooms</td>
+            <td>{{ session.beds }}</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}
