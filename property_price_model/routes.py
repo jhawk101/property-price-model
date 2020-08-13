@@ -8,9 +8,9 @@ def index():
     form = PropertyInputForm()
     if form.validate_on_submit():
         flash("Property data input")
-        session["pcode"] = form.pcode.label
-        session["sqft"] = form.sqft.label
-        session["beds"] = form.beds.label
+        session["pcode"] = form.data.get("pcode")
+        session["sqft"] = form.data.get("sqft")
+        session["beds"] = form.data.get("beds")
         return redirect("/postcode_info")
     return render_template("index.html", title="Property Input", form=form)
 
