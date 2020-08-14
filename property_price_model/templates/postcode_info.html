@@ -1,25 +1,23 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block app_content %}
 <h1>Postcode info</h1>
-<table>
-    <thead>
+<table class="table table-hover">
+    <tr>
         <th>Category</th>
         <th>Value</th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Postcode</td>
-            <td>{{ session.pcode }}</td>
-        </tr>
-        <tr>
-            <td>Square Footage</td>
-            <td>{{ session.sqft }}</td>
-        </tr>
-        <tr>
-            <td>Bedrooms</td>
-            <td>{{ session.beds }}</td>
-        </tr>
-    </tbody>
+    </tr>
+    <tr>
+        <td>Postcode</td>
+        <td>{{ session.pcode }}</td>
+    </tr>
+    <tr>
+        <td>Square Footage</td>
+        <td>{{ session.sqft }}</td>
+    </tr>
+    <tr>
+        <td>Bedrooms</td>
+        <td>{{ session.beds }}</td>
+    </tr>
 </table>
 {% endblock %}

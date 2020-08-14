@@ -31,7 +31,7 @@ class PostcodeValidator:
 
 
 def pcode():
-    message = "bad postcode"
+    message = "Not a valid postcode"
 
     def _pcode(form, field):
         print(field.data)
@@ -42,3 +42,9 @@ def pcode():
             raise ValidationError(message)
 
     return _pcode
+
+
+def get_clean_postcode(valid_postcode):
+    client = PostcodeClient()
+    postcode_data = client.lookupPostcode(valid_postcode)
+    return postcode_data["result"]["postcode"]
