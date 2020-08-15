@@ -19,5 +19,6 @@ def index():
 
 @app.route("/postcode_info")
 def postcode_info():
-    sales = Sale.query.filter_by(postcode=session["pcode"])
+    session["incode"], session["outcode"] = session["pcode"].split(" ")
+    sales = Sale.query.filter_by(incode=session["incode"])
     return render_template("postcode_info.html", sales=sales)

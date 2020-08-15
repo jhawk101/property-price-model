@@ -1,1 +1,2 @@
 FLASK_APP=sales.py
+FLASK_ENV=development

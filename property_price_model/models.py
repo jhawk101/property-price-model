@@ -16,6 +16,8 @@ class Sale(db.Model):
     town_city = db.Column(db.String(64))
     district = db.Column(db.String(64))
     county = db.Column(db.String(64))
+    incode = db.Column(db.String(4))
+    outcode = db.Column(db.String(4))
 
     def __repr__(self):
         return "<Sale {} {} {}> ".format(self.paon, self.saon, self.postcode)
