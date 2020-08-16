@@ -24,17 +24,8 @@ def create_dashboard(server):
     )
 
     # Load DataFrame
-    # sales = Sale.query.filter_by(incode=session["incode"])
-    # df = pd.read_sql(
-    #     "SELECT * FROM SALE limit 5", db.session.bind,
-    # )
-
-    df = pd.DataFrame(
-        data={
-            "sqft": [100, 150, 250, 450, 600],
-            "price": [200000, 215000, 250000, 345000, 460000],
-            "beds": [1, 1, 2, 3, 3],
-        }
+    df = pd.read_sql(
+        "SELECT * FROM SALE where incode = 'BL6'", db.session.bind,
     )
 
     # Custom HTML layout

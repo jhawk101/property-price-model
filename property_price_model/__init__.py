@@ -23,7 +23,7 @@ def create_app():
         app = create_dashboard(app)
 
         # from property_price_model.assets import compile_assets
-
         # compile_assets(app)
+
         return app
 
