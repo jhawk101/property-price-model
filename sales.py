@@ -1,1 +1,0 @@
-from property_price_model import app

@@ -1,5 +1,5 @@
 from flask import render_template, redirect, flash, session, url_for
-from property_price_model import app
+from flask import current_app as app
 from property_price_model.forms import PropertyInputForm
 from property_price_model.postcodes import get_clean_postcode
 from property_price_model.models import Sale
