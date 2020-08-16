@@ -6,13 +6,17 @@ import dash_html_components as html
 import dash_core_components as dcc
 import plotly.express as px
 
+# from flask import session
+
+from property_price_model import db
+
 # from .layout import html_layout
 
 
-def postcode_histogram(server):
+def create_dashboard(server):
     dash_app = dash.Dash(
         server=server,
-        routes_pathname_prefix="/postcode_histogram/",
+        routes_pathname_prefix="/dashapp/",
         external_stylesheets=[
             "/static/dist/css/styles.css",
             "https://fonts.googleapis.com/css?family=Lato",
@@ -20,7 +24,11 @@ def postcode_histogram(server):
     )
 
     # Load DataFrame
-    
+    # sales = Sale.query.filter_by(incode=session["incode"])
+    # df = pd.read_sql(
+    #     "SELECT * FROM SALE limit 5", db.session.bind,
+    # )
+
     df = pd.DataFrame(
         data={
             "sqft": [100, 150, 250, 450, 600],
@@ -32,11 +40,11 @@ def postcode_histogram(server):
     # Custom HTML layout
     # dash_app.index_string = html_layout
 
-    fig = px.scatter(df, x="sqft", y="price", color="beds")
+    fig = px.histogram(df, x="price")
 
     # Create Layout
     dash_app.layout = html.Div(
-        children=[dcc.Graph(id="scatter-graph", figure=fig,),],
+        children=[dcc.Graph(id="histogram-graph", figure=fig,),],
         id="dash-container",
     )
     return dash_app.server
