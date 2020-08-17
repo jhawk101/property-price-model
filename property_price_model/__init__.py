@@ -1,11 +1,12 @@
-from flask import Flask
-from flask_bootstrap import Bootstrap
-from config import Config
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 import dash
+import pandas as pd
+from flask import Flask
 from flask.helpers import get_root_path
+from flask_bootstrap import Bootstrap
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 
+from config import Config
 
 db = SQLAlchemy()
 
@@ -18,10 +19,10 @@ def create_app():
     migrate = Migrate(app, db)
     bootstrap = Bootstrap(app)
 
-    register_dashapp(app)
-
     with app.app_context():
         from property_price_model import routes, models
+
+        register_dashapp(app)
 
     return app
 
