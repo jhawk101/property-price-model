@@ -1,4 +1,5 @@
 import dash
+import dash_bootstrap_components as dbc
 import pandas as pd
 from flask import Flask
 from flask.helpers import get_root_path
@@ -43,6 +44,7 @@ def register_dashapp(app):
         url_base_pathname="/dashapp1/",
         assets_folder=get_root_path(__name__) + "/dashapp1/assets/",
         meta_tags=[meta_viewport],
+        external_stylesheets=[dbc.themes.BOOTSTRAP]
     )
 
     my_dashapp.title = "Dashapp 1"

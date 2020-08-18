@@ -23,9 +23,6 @@
 
 <br>
 
-<a href="{{ url_for('/dashapp1/') + '#' + session.incode }}" class="dash-link">
-    <span>Embdedded Plotly Dash</span>
-    <i class="fas fa-arrow-right"></i>
-</a>
+<iframe src="{{ url_for('/dashapp1/') + '#' + session.incode }}" width=700 height=600></iframe>
 
 {% endblock %}
