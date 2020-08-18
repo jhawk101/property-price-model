@@ -23,7 +23,7 @@
 
 <br>
 
-<a href="/dashapp1/" class="dash-link">
+<a href="{{ url_for('/dashapp1/') + '#' + session.incode }}" class="dash-link">
     <span>Embdedded Plotly Dash</span>
     <i class="fas fa-arrow-right"></i>
 </a>
