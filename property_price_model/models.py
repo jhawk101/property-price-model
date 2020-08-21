@@ -4,7 +4,7 @@ from property_price_model import db
 class Sale(db.Model):
     id = db.Column(db.String(36), primary_key=True)
     price = db.Column(db.Integer)
-    date = db.Column(db.DateTime)
+    date = db.Column(db.Date)
     postcode = db.Column(db.String(8))
     property_type = db.Column(db.String(1))
     new_build = db.Column(db.String(1))

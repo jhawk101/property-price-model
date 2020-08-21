@@ -17,4 +17,8 @@
 
 3. Import dataset as a global variable at the point of registering Dash app so that it isn't called on every callback. Ie. `df = pd.read_sql("SELECT * FROM SALE", db.session.bind,)` at the top of `callbacks.py`
 
-## Flask
+## Data
+
+Distribution of sales from 2018 - mid2020:
+
+![property sales 2018 - 20](property_price_model/notebooks/data/salesplot.png)
