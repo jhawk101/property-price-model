@@ -88,4 +88,5 @@ poetry run pytest
 
 ### External APIs
 
-Just EPC at the moment
+* Api details for [EPC](https://epc.opendatacommunities.org/docs/api/domestic)
+* [postcodes.io](http://postcodes.io/)

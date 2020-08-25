@@ -3,9 +3,7 @@ import pandas as pd
 import plotly.express as px
 from dash.dependencies import Input, Output
 
-from property_price_model import db
-
-df = pd.read_sql("SELECT * FROM SALE", db.session.bind,)
+from property_price_model import df
 
 
 def register_callbacks(dashapp):

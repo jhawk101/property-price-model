@@ -6,10 +6,15 @@ from flask.helpers import get_root_path
 from flask_bootstrap import Bootstrap
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
 
 from config import Config
 
 db = SQLAlchemy()
+
+engine = create_engine("sqlite:///app.db")
+conn = engine.raw_connection()
+df = pd.read_sql(f"SELECT * FROM SALE", con=conn)
 
 
 def create_app():
@@ -44,7 +49,7 @@ def register_dashapp(app):
         url_base_pathname="/dashapp1/",
         assets_folder=get_root_path(__name__) + "/dashapp1/assets/",
         meta_tags=[meta_viewport],
-        external_stylesheets=[dbc.themes.BOOTSTRAP]
+        external_stylesheets=[dbc.themes.BOOTSTRAP],
     )
 
     my_dashapp.title = "Dashapp 1"

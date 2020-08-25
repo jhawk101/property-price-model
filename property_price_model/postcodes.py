@@ -1,5 +1,8 @@
 import requests
+import pandas as pd
 from wtforms.validators import ValidationError
+import os
+
 
 BASE_URL = "http://api.postcodes.io/postcodes/"
 
@@ -48,3 +51,87 @@ def get_clean_postcode(valid_postcode):
     client = PostcodeClient()
     postcode_data = client.lookupPostcode(valid_postcode)
     return postcode_data["result"]["postcode"]
+
+
+def get_epc_data(incode):
+    """
+    epc api called twice because it has a maximum return of 10000 done in 
+    2x calls of 5000
+    """
+
+    key = os.getenv("EPC_KEY")
+    headers = {"Authorization": "Basic " + key, "Accept": "application/json"}
+    epc_url = (
+        "https://epc.opendatacommunities.org/api/v1/domestic/search?postcode="
+    )
+
+    r = requests.get(epc_url + incode, headers=headers,)
+    data = r.json()
+    rows = data["rows"]
+
+    r = requests.get(epc_url + incode + "&from=5000", headers=headers,)
+    data = r.json()
+    rows += data["rows"]
+
+    epc = pd.DataFrame(data=rows, columns=data["column-names"])
+    epc = epc.drop_duplicates(
+        subset=["address1", "address2", "postcode"], keep="first"
+    )
+
+    return epc
+
+
+def add_epc_key(epc_data, key_number=1):
+    if key_number == 1:
+        key = (
+            epc_data["address1"]
+            + " "
+            + epc_data["address2"]
+            + " "
+            + epc_data["postcode"]
+        ).str.lower()
+    elif key_number == 2:
+        key = (epc_data["address1"] + " " + epc_data["postcode"]).str.lower()
+    else:
+        raise ValueError
+
+    key = key.str.replace(",", " ")
+    key = key.str.replace("-", " ")
+    key = key.str.replace(r"\s+", " ")
+
+    return key
+
+
+def add_combined_epc_key(epc_data, sales_key):
+    epc = epc_data.copy()
+
+    epc["key1"] = add_epc_key(epc, 1)
+    epc["key2"] = add_epc_key(epc, 2)
+
+    epc["key"] = None
+    epc.loc[epc["key1"].isin(sales_key), "key"] = epc["key1"]
+    epc.loc[(epc["key2"].isin(sales_key) & pd.isnull(epc["key"])), "key"] = epc[
+        "key2"
+    ]
+
+    return epc["key"]
+
+
+def add_land_reg_key(land_reg_data):
+    key = (
+        land_reg_data["saon"]
+        + " "
+        + land_reg_data["paon"]
+        + " "
+        + land_reg_data["street"]
+        + " "
+        + land_reg_data["postcode"]
+    ).str.lower()
+
+    key = key.str.replace(",", "")
+    key = key.str.replace("-", " ")
+    key = key.str.replace(r"\s+", " ")
+    key = key.str.strip()
+
+    return key
+
