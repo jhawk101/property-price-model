@@ -20,6 +20,8 @@ flask-migrate = "^2.5.3"
 dash = "^1.14.0"
 dash-bootstrap-components = "^0.10.3"
 statsmodels = "^0.11.1"
+psycopg2 = "^2.8.5"
+gunicorn = "^20.0.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

@@ -4,6 +4,7 @@ import plotly.express as px
 from dash.dependencies import Input, Output
 from sqlalchemy import create_engine
 from property_price_model.postcodes import augment_sales_data
+from flask import current_app
 
 
 def register_callbacks(dashapp):
@@ -19,7 +20,9 @@ def register_callbacks(dashapp):
     def update_histogram(incode):
         if incode:
             incode = incode[1:]
-            engine = create_engine("sqlite:///app.db")
+            engine = create_engine(
+                current_app.config.get("SQLALCHEMY_DATABASE_URI")
+            )
             df = pd.read_sql(
                 "SELECT price, incode, saon, paon, street, postcode FROM SALE where incode = ?",
                 params=[incode],
