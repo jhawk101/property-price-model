@@ -9,10 +9,9 @@ from property_price_model.models import Sale
 def index():
     form = PropertyInputForm()
     if form.validate_on_submit():
-        flash("Property data input")
+        flash("Thank you for inputting your property info")
         session["pcode"] = get_clean_postcode(form.data.get("pcode"))
         session["sqft"] = form.data.get("sqft")
-        session["beds"] = form.data.get("beds")
         return redirect(url_for("postcode_info"))
     return render_template("index.html", title="Property Input", form=form)
 

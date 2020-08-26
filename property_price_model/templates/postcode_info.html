@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-<h1>Postcode info</h1>
+<h1>Your property info</h1>
 <table class="table table-hover">
     <tr>
         <th>Category</th>
@@ -12,17 +12,13 @@
         <td>{{ session.pcode }}</td>
     </tr>
     <tr>
-        <td>Square Footage</td>
+        <td>Square Metres</td>
         <td>{{ session.sqft }}</td>
-    </tr>
-    <tr>
-        <td>Bedrooms</td>
-        <td>{{ session.beds }}</td>
     </tr>
 </table>
 
 <br>
 
-<iframe src="{{ url_for('/dashapp1/') + '#' + session.incode }}" width=700 height=600></iframe>
+<iframe src="{{ url_for('/dashapp1/') + '#' + session.incode }}" width=1200 height=600></iframe>
 
 {% endblock %}

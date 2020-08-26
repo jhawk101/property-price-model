@@ -135,3 +135,20 @@ def add_land_reg_key(land_reg_data):
 
     return key
 
+
+def augment_sales_data(sales, incode):
+    sales[["postcode", "paon", "saon", "street"]] = sales[
+        ["postcode", "paon", "saon", "street"]
+    ].fillna("")
+
+    epc = get_epc_data(incode)
+
+    sales["key"] = add_land_reg_key(sales)
+    epc["key"] = add_combined_epc_key(epc, sales["key"])
+
+    merged = pd.merge(sales, epc, on="key", how="left")
+
+    merged["total-floor-area"] = pd.to_numeric(merged["total-floor-area"])
+    merged["number-heated-rooms"] = pd.to_numeric(merged["number-heated-rooms"])
+
+    return merged

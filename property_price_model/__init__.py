@@ -6,16 +6,10 @@ from flask.helpers import get_root_path
 from flask_bootstrap import Bootstrap
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
 
 from config import Config
 
 db = SQLAlchemy()
-
-engine = create_engine("sqlite:///app.db")
-conn = engine.raw_connection()
-df = pd.read_sql(f"SELECT * FROM SALE", con=conn)
-
 
 def create_app():
     app = Flask(__name__, instance_relative_config=False)
