@@ -1,1 +1,1 @@
-web: flask db upgrade; gunicorn property-price-model:app
+web: gunicorn wsgi:app
