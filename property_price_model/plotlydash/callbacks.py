@@ -24,7 +24,7 @@ def register_callbacks(dashapp):
                 current_app.config.get("SQLALCHEMY_DATABASE_URI")
             )
             df = pd.read_sql(
-                "SELECT price, incode, saon, paon, street, postcode FROM SALE where incode = ?",
+                "SELECT price, incode, saon, paon, street, postcode FROM SALE where incode = %s",
                 params=[incode],
                 con=engine,
             )
